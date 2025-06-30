@@ -24,7 +24,13 @@ yarn install
 npm install
 ```
 
-## 3. Rodando as migrations
+## 3. Adicionando variáveis de ambiente
+
+```bash
+cp .env.example .env
+```
+
+## 4. Rodando as migrations
 
 ```bash
 npx drizzle-kit push
@@ -32,7 +38,7 @@ npx drizzle-kit push
 
 Isso irá criar a tabela `users` no banco.
 
-## 4. Rodando o servidor
+## 5. Rodando o servidor
 
 ```bash
 yarn dev
@@ -42,7 +48,7 @@ npx tsx src/index.ts
 
 O servidor irá rodar em `http://localhost:3000`.
 
-## 5. Testando os endpoints
+## 6. Testando os endpoints
 
 ### Listar usuários
 
