@@ -4,15 +4,29 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "tsx src/index.ts"
+    "dev": "tsx src/index.ts",
+    "drizzle:migrate": "drizzle-kit push"
   },
   "dependencies": {
     "@trpc/client": "^11.4.3",
     "@trpc/server": "^11.4.3",
+    "drizzle-orm": "^0.44.2",
+    "pg": "^8.16.3",
     "zod": "^3.25.67"
   },
   "devDependencies": {
+    "@types/node": "^24.0.7",
+    "@types/pg": "^8.15.4",
+    "drizzle-kit": "^0.31.4",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
+  },
+  "drizzle-kit": {
+    "schema": "./src/db/schema.ts",
+    "out": "./drizzle",
+    "driver": "pg",
+    "dbCredentials": {
+      "connectionString": "postgres://postgres:postgres@localhost:5432/postgres"
+    }
   }
 }

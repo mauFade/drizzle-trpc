@@ -1,28 +1,23 @@
-class Database implements UserActions {
-  public userList(): User[] {
-    return [
-      {
-        id: "1",
-        name: "test",
-      },
-    ];
+import { db } from "./client";
+import { users } from "./schema";
+import { eq } from "drizzle-orm";
+import { randomUUID } from "crypto";
+
+export class Database {
+  async userList() {
+    return await db.select().from(users);
   }
 
-  public userById(id: string): User | undefined {
-    return [
-      {
-        id: "1",
-        name: "test",
-      },
-    ].find((u) => u.id === id);
+  async userById(id: string) {
+    const result = await db.select().from(users).where(eq(users.id, id));
+    return result[0];
   }
 
-  public userCreate(data: { name: string }): User {
-    return {
-      id: "1",
-      name: data.name,
-    };
+  async userCreate(data: { name: string }) {
+    const id = randomUUID();
+    await db.insert(users).values({ id, name: data.name });
+    return { id, name: data.name };
   }
 }
 
-export const db = new Database();
+export const dbInstance = new Database();

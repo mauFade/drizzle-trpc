@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { db } from "./db";
+import { dbInstance } from "./db";
 import { publicProcedure, router } from "./server/trpc";
 import { createHTTPServer } from "@trpc/server/adapters/standalone";
 
@@ -7,10 +7,10 @@ const appRouter = router({
   userById: publicProcedure.input(z.string()).query(async (opts) => {
     const { input } = opts;
 
-    return db.userById(input);
+    return dbInstance.userById(input);
   }),
   userList: publicProcedure.query(async () => {
-    return db.userList();
+    return dbInstance.userList();
   }),
   createUser: publicProcedure
     .input(
@@ -21,7 +21,7 @@ const appRouter = router({
     .mutation(async (opts) => {
       const { input } = opts;
 
-      return db.userCreate(input);
+      return dbInstance.userCreate(input);
     }),
 });
 
